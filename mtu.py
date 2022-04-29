@@ -27,13 +27,12 @@ def MTU():
 
     fita1 = '00010101010110010110101101100101110110111011001101011010110011011011011011001101110111011101001110101110110100111011011110101001110111011111101110110011110101111010100111101101111011010011110111011111011101001111101010110110011111011011111010100111110111010110110011111101101111110111011001111110111011111110111011000'
     fita2 = '1' # estado q0 codificado
-    fita3 = binarios[0] + 'B' + binarios[1] + 'B' # entrada w
+    fita3 = 'B' + binarios[0] + 'B' + binarios[1] + 'BB' # entrada w
 
     transicoes = fita1.split('000')
     transicoes = transicoes[1].split('00')
 
-    cabeca_leitura = 0
-
+    cabeca_leitura = 1
     rodando = True
     while(rodando):
         estado = fita2
@@ -52,13 +51,6 @@ def MTU():
             fita2 = componentes[2] # qj
             fita3 = fita3[:cabeca_leitura] + decodificar(componentes[3]) + fita3[cabeca_leitura+1:] #y
 
-            print('Estado:' +estado)
-            print('Simbolo antigo:' +simbolo)
-            print('Simbolo novo:' +decodificar(componentes[3]))
-            print('Fita:' +fita3)
-            print('--------')
-
-
             if (componentes[4] == '1'): # L
                 cabeca_leitura = cabeca_leitura - 1
             elif (componentes[4] == '11'): # R
@@ -67,7 +59,7 @@ def MTU():
         else:
             rodando = False
 
-    
-    return fita3
+    resultado = fita3.replace('B', '')
+    print(resultado)
 
 MTU()
